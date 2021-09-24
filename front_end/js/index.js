@@ -23,6 +23,7 @@ function displayArticles(cameras) {
     console.log(cameras);
     let titre;
     let cam;
+    
 
     // console.log(cameras[0].name); 
     for (let i = 0; i < cameras.length; i++) {
@@ -33,6 +34,11 @@ function displayArticles(cameras) {
         titre.textContent=cameras[i].name;
         cam.appendChild(titre)
         document.getElementById("main").appendChild(cam);
+        var myImage = new Image(100, 100);
+        myImage.src = cameras[i].imageUrl;
+        document.body.appendChild(myImage);
+
+
         // document.getElementById("main").innerHTML += "<h2>"+cameras[i].name+"</h2>";
      }
 }
