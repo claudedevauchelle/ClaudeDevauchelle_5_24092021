@@ -4,35 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Orinoco</title>
-    <link rel="stylesheet" href="front_end/css/style.css" />
+    <title>Panier produit</title>
+    <link rel="stylesheet" href="../css/style.css" />
     <!-- <link rel="stylesheet" href="front_end/style.css"/> -->
   </head>
   <body>
+    <!-- HEADER -->
+
     <div class="card-header bg-paradise text-white">
       <div class="title">
         <h1 class="card-title text-center">Passion de la photo</h1>
       </div>
       <div class="card mx-auto" style="width: 35%">
-        <a href="index.html">
-        <img
-          src="front_end/images/title-img.png"
-          class="card-img-top"
-          alt="..."
+        <a href="/index.html">
+          <img
+            src="/front_end/images/title-img.png"
+            class="card-img-top"
+            alt="..."
         /></a>
       </div>
     </div>
 
     <nav class="navbar navbar-light bg-light">
       <form class="form-inline">
-        <a href="index.html"><button class="btn btn-outline-success" type="button">Accueil</button></a>
-        <a href="/front_end/html/paniers.html"><button class="btn btn-outline-success" type="button">Panier</button></a>
+        <a href="/index.html"
+          ><button class="btn btn-outline-success" type="button">
+            Accueil
+          </button></a
+        >
+        <a href="paniers.html"
+          ><button class="btn btn-outline-success" type="button">
+            Panier
+          </button></a
+        >
       </form>
     </nav>
 
-    <div class="container card-body">
-      <ul class="liste-appareils mx-auto text-paradise"></ul>
+    <!-- BODY -->
+
+    <div id="container-produits" class="card text-center">
+      <div class="card-header">Votre sélection</div>
     </div>
+
+    
+
+    <!-- FOOTER -->
 
     <div class="card-footer bg-heatwave text-paradise">
       <div class="title">
@@ -40,13 +56,15 @@
       </div>
       <div class="card mx-auto" style="width: 35%">
         <img
-          src="front_end/images/title-img.png"
+          src="/front_end/images/title-img.png"
           class="card-img-top"
           alt="..."
         />
       </div>
     </div>
 
-    <script src="front_end/js/index.js"></script>
+    <!-- SCRIPT -->
+
+    <script src="../js/panier.js"></script>
   </body>
 </html>

@@ -1,44 +1,41 @@
-main()
+let allCameras = [];
 
-async function main() {
-    const articles = await getArticles()
-    console.log(articles)
-    displayArticles(articles)
+const listeAppareils = document.querySelector(".liste-appareils");
+
+function getCameras() {
+  fetch("http://localhost:3000/api/cameras")
+    .then((response) => response.json())
+    .then((allCameras) => {
+      //   console.log(allCameras);
+      createCard(allCameras);
+    })
+    .catch(function (error) {
+      alert(error);
+    });
 }
 
-function getArticles() {
-    return fetch("http://localhost:3000/api/cameras")
-    .then(function(httpBodyResponse) {
-        return httpBodyResponse.json()
-    })
-    .then(function(articles) {
-        return articles
-    })
-    .catch(function(error) {
-        alert(error)
-    })
+getCameras();
+
+function createCard(arr) {
+  console.log(arr);
+  for (let i = 0; i < arr.length; i++) {
+    const carte = document.createElement("li");
+    const txtCarte = document.createElement("h5");
+    txtCarte.innerText = `Modèle : ${arr[i].name}`;
+    const priceCarte = document.createElement("p");
+    priceCarte.innerText = `Prix : ${arr[i].price/100} euros`;
+    const imgCarte = document.createElement("img");
+    imgCarte.src = arr[i].imageUrl;
+    const linkProduit = document.createElement("a");
+    linkProduit.innerText = `commandez moi !`;
+    linkProduit.href = `/front_end/html/produit.html?id=${arr[i]._id}`;
+
+    carte.appendChild(imgCarte);
+    carte.appendChild(txtCarte);
+    carte.appendChild(priceCarte);
+    carte.appendChild(linkProduit);
+
+    listeAppareils.appendChild(carte);
+  }
 }
 
-function displayArticles(cameras) {
-    console.log(cameras);
-    let titre;
-    let cam;
-    
-
-    // console.log(cameras[0].name); 
-    for (let i = 0; i < cameras.length; i++) {
-        console.log(cameras[i].name);
-        console.log(cameras[i].imageUrl);
-        cam=document.createElement("div");
-        titre=document.createElement("h2");
-        titre.textContent=cameras[i].name;
-        cam.appendChild(titre)
-        document.getElementById("main").appendChild(cam);
-        var myImage = new Image(100, 100);
-        myImage.src = cameras[i].imageUrl;
-        document.body.appendChild(myImage);
-
-
-        // document.getElementById("main").innerHTML += "<h2>"+cameras[i].name+"</h2>";
-     }
-}
