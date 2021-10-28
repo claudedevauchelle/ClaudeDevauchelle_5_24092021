@@ -1,8 +1,6 @@
-
-
 let localStorageAppareil = JSON.parse(localStorage.getItem("appPhoto"));
 
-console.log(localStorageAppareil);
+// console.log(localStorageAppareil);
 
 ///    afficher appareils photo panier
 
@@ -29,18 +27,20 @@ if (localStorageAppareil == null || localStorageAppareil == 0) {
       archiListePanier +
       `
       <div class="card-body container-recap d-flex flex-row mx-auto align-items-center">
-        <div><h5 class="card-title">Quantité: 1 - ${localStorageAppareil[k].nomAppareil} - objectif : ${localStorageAppareil[k].taille_lentille}</h5></div>
+        <div><h5 class="card-title">Quantité: ${localStorageAppareil[k].quantite} - ${localStorageAppareil[k].nomAppareil} - objectif : ${localStorageAppareil[k].taille_lentille}</h5></div>
         <div class="d-flex mx-3 px-3 align-items-end">
-          <h4 class="card-text">${localStorageAppareil[k].prix} euros</h4>
+          <h4 class="card-text">${localStorageAppareil[k].prix * localStorageAppareil[k].quantite} euros</h4>
           <a href="#" class="btn btn-supprimer btn-danger mx-3">supprimer article</a>
         </div>
       </div>
       `;
   }
-  if (k === localStorageAppareil.length) {
-    //ajout panier
-    listePanier.innerHTML = archiListePanier;
-  }
+  // if (k === localStorageAppareil.length) {
+  //ajout panier
+  listePanier.innerHTML = archiListePanier;
+  console.log(localStorageAppareil);
+  console.log("localStorageAppareil");
+  // }
 }
 
 // supprimer element splice
@@ -114,11 +114,11 @@ function panierVide() {
 
 if (panierVide() == false) {
   for (let i = 0; i < localStorageAppareil.length; i++) {
-    let montantTotalPanier = localStorageAppareil[i].prix;
+    let montantTotalPanier = localStorageAppareil[i].prix * localStorageAppareil[i].quantite;
 
     montantTotal.push(montantTotalPanier);
 
-    // console.log(montantTotal)
+    console.log(montantTotal)
   }
 }
 
@@ -131,7 +131,7 @@ console.log(prixTotal);
 // afficher html prix total
 
 const resultatTotalCommande = `
-<div class="card-body display-6 bg-success">
+<div class="card-body display-6 bg-white">
 <div class="resultat_commande_html">Total de votre commande : ${prixTotal} euros</div>
     </div>
 `;
@@ -147,44 +147,48 @@ const form_html_panier = () => {
         <form>
           <!-- 2 column grid layout with text inputs for the first and last names -->
 
-          <div class="col mb-4 bg-white w-50 mx-auto">
+          <div class="col mb-4 bg-white w-50 text-center mx-auto">
             <div class="form-outline">
               <input type="text" id="nom" class="form-control" />
               <label class="form-label" for="Nom">Nom</label>
+              <span id="nomManquant" class="text-danger"></span>
             </div>
           </div>
-          <div class="col mb-4 bg-white w-50 mx-auto">
+          <div class="col mb-4 bg-white w-50 mx-auto text-center">
             <div class="form-outline">
               <input type="text" id="prenom" class="form-control" />
               <label class="form-label" for="Prenom">prénom</label>
+              <span id="prenomManquant" class="text-danger"></span>
             </div>
           </div>
-
-          <div class="col mb-4 bg-white w-50 mx-auto">
+          <div class="col mb-4 bg-white w-50 mx-auto text-center">
+            <div class="form-outline">
+              <input type="text" id="adresse" class="form-control" />
+              <label class="form-label" for="adresse">adresse</label>
+              <span id="adresseManquant" class="text-danger"></span>
+            </div>
+          </div>
+          <div class="col mb-4 bg-white w-50 mx-auto text-center">
             <div class="form-outline">
               <input type="text" id="ville" class="form-control" />
-              <label class="form-label" for="Ville">Ville</label>
-            </div>
-          </div>
-          <div class="col mb-4 bg-white w-50 mx-auto">
-            <div class="form-outline">
-              <input type="number" id="code_Postal" class="form-control" />
-              <label class="form-label" for="Code_Postal">Code Postal</label>
+              <label class="form-label" for="ville">ville</label>
+              <span id="villeManquant" class="text-danger"></span>
             </div>
           </div>
 
           <!-- Email input -->
-          <div class="form-outline mb-4 bg-white w-50 mx-auto">
+          <div class="form-outline mb-4 bg-white w-50 mx-auto text-center">
             <input type="email" id="email_address" class="form-control" />
-            <label class="form-label" for="Email_address">Email address</label>
+            <label class="form-label" for="Email_address">Email</label>
+            <span id="emailManquant" class="text-danger"></span>
           </div>
 
           <!-- Submit button -->
-          <div class="d-grid gap-2 col-6 mx-auto">
+          <div class="d-grid gap-2 col-6 mx-auto w-25">
             <button
               id="btn_envoyerform"
               type="submit"
-              class="btn btn-primary btn-block mb-4 w-25 mx-auto"
+              class="btn btn-primary btn-block mb-4 mx-auto"
               name="Confirmation_commande"
             >Confirmation commande
             </button>
@@ -210,11 +214,11 @@ btnEnvoyerForm.addEventListener("click", (e) => {
 
   //class globale
   class form_infos {
-    constructor(prenom, nom) {
+    constructor() {
       this.nom = document.querySelector("#nom").value;
       this.prenom = document.querySelector("#prenom").value;
+      this.adresse = document.querySelector("#adresse").value;
       this.ville = document.querySelector("#ville").value;
-      this.code_Postal = document.querySelector("#code_Postal").value;
       this.email_address = document.querySelector("#email_address").value;
     }
   }
@@ -226,28 +230,161 @@ btnEnvoyerForm.addEventListener("click", (e) => {
   console.log(form_infos_globals);
   console.log("form_infos_globals");
 
-  // const formInfos = {
-  //   nom: document.querySelector("#nom").value,
-  //   prenom: document.querySelector("#prenom").value,
-  //   ville: document.querySelector("#ville").value,
-  //   code_Postal: document.querySelector("#code_Postal").value,
-  //   email_address: document.querySelector("#email_address").value
-  // }
+  // regex validation champs formulaire nom, mail code postal etc
+  //tetx alert clair
+  const textAlertClair = (value) => {
+    return `${value} - Uniquement des lettres minuscules ou majuscules, entre 2 et 24 caractères`;
+  };
 
-  // add object forminfos ds local storage
+  const rgxNomPrenomVille = (value) => {
+    return /^(\s)*[A-Za-zsàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]{2,20}((\s)?((\'|\-|\.)?([A-Za-zsàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]){2,20}))*(\s)*$/.test(
+      value
+    );
+  };
 
-  localStorage.setItem(
-    "form_infos_globals",
-    JSON.stringify(form_infos_globals)
-  );
+  const rgxNomAdresseRueNum = (value) => {
+    return /^(\s)*[A-Za-z0-9sàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]{1,20}((\s)?((\'|\-|\.)?([A-Za-zsàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]){1,20}))*(\s)*$/.test(
+      value
+    );
+    // return /^[a-zA-Z0-9]{2,50}$/.test(value);
+  };
 
+  const rgxAdresseMail = (value) => {
+    return /^(\w\.?)+@[\w\.-]+\.\w{2,4}$/.test(value);
+  };
+
+  function controlRgxNom() {
+    const rgxNom = form_infos_globals.nom;
+
+    console.log(rgxNom);
+
+    if (rgxNomPrenomVille(rgxNom)) {
+      document.querySelector("#nomManquant").textContent = "";
+      return true;
+    } else {
+      document.querySelector("#nomManquant").textContent =
+        "-- Ce champ n'est pas rempli correctement --";
+      alert(textAlertClair("Nom"));
+      return false;
+    }
+  }
+
+  function controlRgxPrenom() {
+    const rgxPrenom = form_infos_globals.prenom;
+
+    console.log(rgxPrenom);
+
+    if (rgxNomPrenomVille(rgxPrenom)) {
+      document.querySelector("#prenomManquant").textContent = "";
+      return true;
+    } else {
+      document.querySelector("#prenomManquant").textContent =
+        "-- Ce champ n'est pas rempli correctement --";
+      alert(textAlertClair("Prénom"));
+      return false;
+    }
+  }
+  function controlRgxVille() {
+    const rgxVille = form_infos_globals.ville;
+
+    console.log(rgxVille);
+
+    if (rgxNomPrenomVille(rgxVille)) {
+      document.querySelector("#villeManquant").textContent = "";
+      return true;
+    } else {
+      document.querySelector("#villeManquant").textContent =
+        "-- Ce champ n'est pas rempli correctement --";
+      alert(textAlertClair("Ville"));
+      return false;
+    }
+  }
+
+  function controlRgxAdresse() {
+    const rgxCodeadresse = form_infos_globals.adresse;
+
+    console.log(rgxCodeadresse);
+
+    if (rgxNomAdresseRueNum(rgxCodeadresse)) {
+      document.querySelector("#adresseManquant").textContent = "";
+      return true;
+    } else {
+      document.querySelector("#adresseManquant").textContent =
+        "-- Ce champ n'est pas rempli correctement --";
+      alert(textAlertClair("Adresse"));
+      return false;
+    }
+  }
+
+
+  function controlRgxMail() {
+    const rgxMail = form_infos_globals.email_address;
+
+    console.log(rgxMail);
+
+    if (rgxAdresseMail(rgxMail)) {
+      document.querySelector("#emailManquant").textContent = "";
+      return true;
+    } else {
+      document.querySelector("#emailManquant").textContent =
+        "-- Ce champ n'est pas rempli correctement --";
+      alert(textAlertClair("Adresse mail"));
+      return false;
+    }
+  }
+
+  // add object forminfos ds local storage valid regex
+  if (
+    controlRgxNom() &&
+    controlRgxPrenom() &&
+    controlRgxAdresse() &&
+    controlRgxVille() &&
+    controlRgxMail()
+  ) {
+    localStorage.setItem(
+      "form_infos_globals",
+      JSON.stringify(form_infos_globals)
+    );
+  } else {
+    alert("Veuillez bien remplir le formulaire");
+  }
   // // value form ds tableau
 
   const prepInfoCommande = {
     localStorageAppareil,
-    form_infos,
+    infoLocalStorageToForm,
   };
 
   console.log(prepInfoCommande);
-  console.log("prepInfoCommande");
+
+  //envoyer objet "prepinfocommande"
 });
+
+///    pre remplir formulaire avec info deja rentrée
+
+const infoLocalStorage = localStorage.getItem("form_infos_globals");
+
+// convertion info en javascript
+
+const infoLocalStorageToForm = JSON.parse(infoLocalStorage);
+
+//info du local storage dans le formulaire
+// fonction pr info
+
+function autoInfoFormStorage(input) {
+  if (infoLocalStorageToForm == null) {
+    console.log("le local est null");
+  } else {
+    document.querySelector(`#${input}`).value = infoLocalStorageToForm[input];
+  }
+}
+
+autoInfoFormStorage("nom");
+autoInfoFormStorage("prenom");
+autoInfoFormStorage("adresse");
+autoInfoFormStorage("ville");
+autoInfoFormStorage("email_address");
+
+
+console.log("infoLocalStorageToForm");
+console.log(infoLocalStorageToForm);

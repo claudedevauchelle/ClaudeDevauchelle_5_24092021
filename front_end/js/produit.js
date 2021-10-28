@@ -9,8 +9,8 @@ const idUnique = urlSearchParams.get("id");
 
 // recuperation API
 
-function getCamerasId() {
-  fetch(`http://localhost:3000/api/cameras/${idUnique}`)
+function getCamerasId(id) {
+  fetch(`http://localhost:3000/api/cameras/${id}`)
     .then((response) => response.json())
     .then((IdCameras) => {
       //   console.log(IdCameras);
@@ -21,7 +21,7 @@ function getCamerasId() {
     });
 }
 
-getCamerasId();
+getCamerasId(idUnique);
 
 // creation carte article
 
@@ -47,8 +47,17 @@ function createCard(arr) {
   <label for="taille_lentille">Choisir la lentille :</label>
   <select name="lenses" id="lenses" class="lenses">
   </select>
+
+
+<div class="form-outline">
+<label for="taille_lentille">Choisir la quantité :</label>
+<input type="number" name="quantite_appareil" id="quantite_appareil" class="lenses" />
+</div>
 </form>`;
 
+  //           <label for="quantite_appareil">Choisir la quantité :</label>
+  // <select name="quantite_appareil" id="quantite_appareil" class="lenses">
+  // </select>
   // tableau controle option produit
 
   const option_quantite = arr.lenses;
@@ -88,20 +97,40 @@ function createCard(arr) {
   //   console.log(integrer_optionTaille);
   integrer_optionTaille.innerHTML = archOptions;
 
+  //choix quantité appareil
+
+//   const archQuantite = `
+// <option value="1">1</option>
+// <option value="2">2</option>
+// <option value="3">3</option>
+// <option value="4">4</option>
+// `;
+  //affich quantite architecture
+
+  const integrer_optionQuantite = document.querySelector("#quantite_appareil");
+  // integrer_optionQuantite.innerHTML = archQuantite;
+
+  //   envoi btn panier
   const btn_envoyerPanier = document.querySelector("#btn-envoyer");
   //   console.log(btn_envoyerPanier);
 
   btn_envoyerPanier.addEventListener("click", (event) => {
     event.preventDefault();
 
+    // choix utilisateur variable
+
     const tailleLense = optionId.value;
+
+    // quantite variable
+    const choixQuantite = integrer_optionQuantite.value;
+
     // console.log(tailleLense);
 
     let recup_optionProduit = {
       nomAppareil: arr.name,
       id_appareilSelectionne: arr._id,
       taille_lentille: tailleLense,
-      quantite: 1,
+      quantite: choixQuantite,
       prix: arr.price / 100,
     };
 
@@ -111,9 +140,9 @@ function createCard(arr) {
 
     // stocker informations que je souhaite envoyer dans mon panier
 
-    let localStorageAppareil = JSON.parse(
-      localStorage.getItem("appPhoto")
-    );
+    let localStorageAppareil = JSON.parse(localStorage.getItem("appPhoto"));
+
+
     // JSON parse c'est pour convertir les données au format JSON qui sont le local stroage un objet  javascript
 
     //fonction message validation
@@ -131,13 +160,22 @@ Consultez le panier OK ou revenir à l'accueil ANNULER`)
     // fonction pour factoriser ajout appareil  photo ds le local storage
 
     const factAjoutAppareilLocalstorage = () => {
-
-    
+    let localStorageAppareil = JSON.parse(localStorage.getItem("appPhoto"));
+    let appareilTrouve = 0;
+    if (localStorageAppareil == null){
+      localStorageAppareil = [];
+    }
+    for (let i = 0;i < localStorageAppareil.length;i ++){
+      if ((recup_optionProduit.id_appareilSelectionne === localStorageAppareil[i].id_appareilSelectionne) && (recup_optionProduit.taille_lentille === localStorageAppareil[i].taille_lentille)){
+        appareilTrouve = 1;
+        localStorageAppareil[i].quantite = Number(localStorageAppareil[i].quantite) + Number(recup_optionProduit.quantite);
+      }
+    }
+    if (appareilTrouve === 0) {
       localStorageAppareil.push(recup_optionProduit);
-      localStorage.setItem(
-        "appPhoto",
-        JSON.stringify(localStorageAppareil)
-      );
+    }
+      localStorage.setItem("appPhoto", JSON.stringify(localStorageAppareil));
+      console.log(recup_optionProduit);
     };
 
     //  produit déja existant key OK
