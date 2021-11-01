@@ -140,7 +140,7 @@ function createCard(arr) {
 
     // stocker informations que je souhaite envoyer dans mon panier
 
-    let localStorageAppareil = JSON.parse(localStorage.getItem("appPhoto"));
+    let localStorageAppareil = JSON.parse(localStorage.getItem("products"));
 
 
     // JSON parse c'est pour convertir les données au format JSON qui sont le local stroage un objet  javascript
@@ -160,7 +160,7 @@ Consultez le panier OK ou revenir à l'accueil ANNULER`)
     // fonction pour factoriser ajout appareil  photo ds le local storage
 
     const factAjoutAppareilLocalstorage = () => {
-    let localStorageAppareil = JSON.parse(localStorage.getItem("appPhoto"));
+    let localStorageAppareil = JSON.parse(localStorage.getItem("products"));
     let appareilTrouve = 0;
     if (localStorageAppareil == null){
       localStorageAppareil = [];
@@ -174,7 +174,7 @@ Consultez le panier OK ou revenir à l'accueil ANNULER`)
     if (appareilTrouve === 0) {
       localStorageAppareil.push(recup_optionProduit);
     }
-      localStorage.setItem("appPhoto", JSON.stringify(localStorageAppareil));
+      localStorage.setItem("products", JSON.stringify(localStorageAppareil));
       console.log(recup_optionProduit);
     };
 
