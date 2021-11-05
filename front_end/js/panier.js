@@ -100,7 +100,7 @@ btn_suppr_panier.addEventListener("click", (e) => {
   localStorage.removeItem("products");
   // alerte panier vidé
 
-  alert("le panier é été vidé");
+  alert("le panier a été vidé");
 
   window.location.href = "paniers.html";
 });
@@ -222,26 +222,24 @@ const btnEnvoyerForm = document.querySelector("#btn_envoyerform");
 btnEnvoyerForm.addEventListener("click", (e) => {
   e.preventDefault();
 
-  // recup form info
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
-  //class globale
-  // class form_infos {
-  //   constructor() {
-  //     this.lastName = document.querySelector("#lastName").value;
-  //     this.firstName = document.querySelector("#firstName").value;
-  //     this.address = document.querySelector("#address").value;
-  //     this.city = document.querySelector("#city").value;
-  //     this.email = document.querySelector("#email").value;
-  //   }
-  // }
+  //
 
-  // // call classe
+  //
 
-  // const contact = new form_infos();
-
-  // console.log(contact);
-  // console.log("contact");
-  // const products = ["5be9bc241c9d440000a730e7"];
+  //
+  //
+  //
 
   const contact = {
     lastName: document.getElementById("lastName").value,
@@ -294,7 +292,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
       return true;
     } else {
       document.querySelector("#nomManquant").textContent =
-        "-- Ce champ n'est pas rempli correctement --";
+        "-- Texte non valide --lettre et ou espace";
       return false;
     }
   }
@@ -309,7 +307,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
       return true;
     } else {
       document.querySelector("#prenomManquant").textContent =
-        "-- Ce champ n'est pas rempli correctement --";
+        "-- Texte non valide --lettre et ou espace --";
       return false;
     }
   }
@@ -323,7 +321,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
       return true;
     } else {
       document.querySelector("#villeManquant").textContent =
-        "-- Ce champ n'est pas rempli correctement --";
+        "-- Texte non valide --lettre et ou espace --";
       return false;
     }
   }
@@ -338,7 +336,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
       return true;
     } else {
       document.querySelector("#adresseManquant").textContent =
-        "-- Ce champ n'est pas rempli correctement --";
+        "-- Texte non valide --lettre, chiffre et ou espace --";
       return false;
     }
   }
@@ -353,7 +351,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
       return true;
     } else {
       document.querySelector("#emailManquant").textContent =
-        "-- Ce champ n'est pas rempli correctement --";
+        "-- Texte non valide -- ex: exemple@exemple.com --";
       return false;
     }
   }
@@ -379,11 +377,11 @@ btnEnvoyerForm.addEventListener("click", (e) => {
     sendDataServer(prepInfoCommande);
 
   } else {
-    alert("Veuillez bien remplir le formulaire");
+    // alert("Veuillez bien remplir le formulaire");
   }
   // // value form ds tableau
 
-  // const products = ["0987YTRFGT"];
+
 });
 
 function sendDataServer(prepInfoCommande){

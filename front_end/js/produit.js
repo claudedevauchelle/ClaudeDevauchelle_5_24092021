@@ -1,4 +1,4 @@
-// ID dans l'url
+// ID dans l'url recuperation chaine de requete 
 
 const queryString = window.location.search;
 
@@ -47,31 +47,25 @@ function createCard(arr) {
   <label for="taille_lentille">Choisir la lentille :</label>
   <select name="lenses" id="lenses" class="lenses">
   </select>
+  <div class="form-outline">
+  <label for="taille_lentille">Choisir la quantité :</label>
+  <input type="number" name="quantite_appareil" id="quantite_appareil" class="lenses" />
+  </div>
+  </form>`;
 
 
-<div class="form-outline">
-<label for="taille_lentille">Choisir la quantité :</label>
-<input type="number" name="quantite_appareil" id="quantite_appareil" class="lenses" />
-</div>
-</form>`;
-
-  //           <label for="quantite_appareil">Choisir la quantité :</label>
-  // <select name="quantite_appareil" id="quantite_appareil" class="lenses">
-  // </select>
-  // tableau controle option produit
-
-  const option_quantite = arr.lenses;
+  const option_lentille = arr.lenses;
   console.log(arr.lenses);
 
   let archOptions = [];
 
   // afficher juste options disponible
 
-  for (let j = 0; j < option_quantite.length; j++) {
+  for (let j = 0; j < option_lentille.length; j++) {
     archOptions =
       archOptions +
-      `<option value="${option_quantite[j]}">${option_quantite[j]}</option>`;
-    console.log(option_quantite);
+      `<option value="${option_lentille[j]}">${option_lentille[j]}</option>`;
+    console.log(option_lentille);
   }
 
   //   console.log(archOptions);
@@ -86,31 +80,24 @@ function createCard(arr) {
   listeProduits.appendChild(carte);
   //   console.log(carte);
 
-  //   infos taille lentilles
+  //   infos produit selectionne par utilisateur
 
   const optionId = document.querySelector("#lenses");
   console.log(optionId);
 
-  // affichage option de taille menu deroulant
+  // affichage option de taille menu deroulant selectionne par utilisateur
 
   const integrer_optionTaille = document.querySelector("#lenses");
   //   console.log(integrer_optionTaille);
   integrer_optionTaille.innerHTML = archOptions;
 
-  //choix quantité appareil
 
-//   const archQuantite = `
-// <option value="1">1</option>
-// <option value="2">2</option>
-// <option value="3">3</option>
-// <option value="4">4</option>
-// `;
-  //affich quantite architecture
+  //affich quantite architecture selectionne par utilisateur
 
   const integrer_optionQuantite = document.querySelector("#quantite_appareil");
   // integrer_optionQuantite.innerHTML = archQuantite;
 
-  //   envoi btn panier
+  //   envoi btn panier infos choisis par utilisateur
   const btn_envoyerPanier = document.querySelector("#btn-envoyer");
   //   console.log(btn_envoyerPanier);
 
@@ -125,6 +112,8 @@ function createCard(arr) {
     const choixQuantite = integrer_optionQuantite.value;
 
     // console.log(tailleLense);
+
+    // recapitulatif selection de l'utilisateur avec appelation de la webAPI
 
     let recup_optionProduit = {
       nomAppareil: arr.name,
@@ -143,7 +132,7 @@ function createCard(arr) {
     let localStorageAppareil = JSON.parse(localStorage.getItem("products"));
 
 
-    // JSON parse c'est pour convertir les données au format JSON qui sont le local stroage un objet  javascript
+    // JSON parse c'est pour convertir les données au format JSON qui sont le local storage un objet  javascript
 
     //fonction message validation
     const messageValidation = () => {
