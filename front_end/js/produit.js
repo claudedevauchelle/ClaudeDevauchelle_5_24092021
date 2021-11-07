@@ -41,7 +41,7 @@ function createCard(arr) {
   const descCarte = document.createElement("p");
   descCarte.innerText = arr.description;
   const linkProduit = document.createElement("div");
-  linkProduit.innerHTML = `<button id="btn-envoyer" type="submit" name="btn-envoyer">Ajouter au panier</button>`;
+  linkProduit.innerHTML = `<button id="btn-envoyer" class="btn btn-outline-blueblack" type="submit" name="btn-envoyer">Ajouter au panier</button>`;
   const optionProduit = document.createElement("p");
   optionProduit.innerHTML = `<form>
   <label for="taille_lentille">Choisir la lentille :</label>
@@ -49,7 +49,7 @@ function createCard(arr) {
   </select>
   <div class="form-outline">
   <label for="taille_lentille">Choisir la quantité :</label>
-  <input type="number" name="quantite_appareil" id="quantite_appareil" class="lenses" />
+  <input type="text" maxlength="2" name="quantite_appareil" id="quantite_appareil" class="lenses" value="1"  size="3" >
   </div>
   </form>`;
 

@@ -1,3 +1,5 @@
+// tableau liste produits web api
+
 let allCameras = [];
 
 const listeAppareils = document.querySelector(".liste-appareils");
@@ -27,7 +29,7 @@ function createCard(arr) {
     const imgCarte = document.createElement("img");
     imgCarte.src = arr[i].imageUrl;
     const linkProduit = document.createElement("a");
-    linkProduit.innerText = `commandez moi !`;
+    linkProduit.innerHTML = `<button class="btn btn-outline-blueblack" type="submit" name="btn-envoyer">Commandez moi !</button>`;
     linkProduit.href = `/front_end/html/produit.html?id=${arr[i]._id}`;
 
     carte.appendChild(imgCarte);
