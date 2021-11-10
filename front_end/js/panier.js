@@ -41,7 +41,7 @@ if (localStorageAppareil == null || localStorageAppareil == 0) {
       </div>
       `;
   }
-  // if (k === localStorageAppareil.length) {
+  // 
   //ajout panier
   listePanier.innerHTML = archiListePanier;
   console.log(localStorageAppareil);
@@ -261,9 +261,9 @@ btnEnvoyerForm.addEventListener("click", (e) => {
 
   // regex validation champs formulaire nom, mail code postal etc
   //tetx alert clair
-  const textAlertClair = (value) => {
-    return `${value} - Uniquement des lettres minuscules ou majuscules, entre 2 et 24 caractères`;
-  };
+  // const textAlertClair = (value) => {
+  //   return `${value} - Uniquement des lettres minuscules ou majuscules, entre 2 et 24 caractères`;
+  // };
 
   const rgxNomPrenomVille = (value) => {
     return /^(\s)*[A-Za-zsàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]{2,20}((\s)?((\'|\-|\.)?([A-Za-zsàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]){2,20}))*(\s)*$/.test(
@@ -399,7 +399,7 @@ function sendDataServer(prepInfoCommande){
       const contenu = await response.json();
       console.log(contenu);
       if (response.ok) {
-        console.log(`resulats repsonse OK: ${response.ok}`);
+        console.log(`resulats reponse OK: ${response.ok}`);
         console.log(contenu.orderId);
         //id dans localstorage
         localStorage.setItem("orderId", contenu.orderId);
